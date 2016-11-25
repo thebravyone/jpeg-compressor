@@ -1,0 +1,19 @@
+{
+  "name": "jpeg-compressor",
+  "version": "1.0.0",
+  "description": "jpeg-compressor",
+  "main": "jpeg-compressor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebravyone/jpeg-compressor.git"
+  },
+  "author": "thebravyone",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thebravyone/jpeg-compressor/issues"
+  },
+  "homepage": "https://github.com/thebravyone/jpeg-compressor#readme"
+}
