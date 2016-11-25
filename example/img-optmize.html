@@ -1,0 +1,58 @@
+<!--
+@Author: Guilherme Seradilha
+@Date:   24-Nov-2016 15:47:38
+@Email:  gserradilha@adagency.com.br
+@Last modified by:   Guilherme Seradilha
+@Last modified time: 25-Nov-2016 10:13:28
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jpeg-compressor Example</title>
+</head>
+
+<body>
+    <br/>
+    <label>Image File:</label>
+    <input type="file" id="imageLoader" name="imageLoader" />
+    <br/>
+    <br/>
+    <span id="compression-rate"></span>
+    <br/>
+    <a id="download" download="compressed.jpg"></a>
+    <div id='preview'></div>
+    <script type="text/javascript" src="../jpeg-compressor.js"></script>
+    <script>
+        var compressor = new JPEGcompressor(),
+            originalSize,
+            imageLoader = document.getElementById('imageLoader');
+        imageLoader.addEventListener('change', readAndCompressImage, false);
+
+        function readAndCompressImage(e) {
+            var reader = new FileReader();
+            reader.onload = function(content) {
+                originalSize = dataURLSize(content.target.result);
+                compressor.Run(content.target.result, 0.7, receivesCompressedImage);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        function receivesCompressedImage(data) {
+            document.getElementById('compression-rate').innerHTML = "Compression rate of " + (100 - (100 * dataURLSize(data) / originalSize)).toFixed(0) + "%";
+            document.getElementById('download').innerHTML = "Download processed image";
+            document.getElementById('download').href = data;
+        }
+
+        function dataURLSize (data) {
+            return data.length * 3 / 4;
+        }
+    </script>
+</body>
+
+</html>
