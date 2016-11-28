@@ -1,11 +1,9 @@
 <!--
 @Author: Guilherme Seradilha
 @Date:   24-Nov-2016 15:47:38
-@Email:  gserradilha@adagency.com.br
 @Last modified by:   Guilherme Seradilha
-@Last modified time: 25-Nov-2016 10:16:42
+@Last modified time: 28-Nov-2016 12:11:27
 -->
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,41 +16,41 @@
 </head>
 
 <body>
-    <br/>
-    <label>Image File:</label>
-    <input type="file" id="imageLoader" name="imageLoader" />
-    <br/>
-    <br/>
-    <span id="compression-rate"></span>
-    <br/>
-    <a id="download" download="compressed.jpg"></a>
-    <div id='preview'></div>
-    <script type="text/javascript" src="../jpeg-compressor.js"></script>
-    <script>
-        var compressor = new JPEGcompressor(),
-            originalSize,
-            imageLoader = document.getElementById('imageLoader');
-        imageLoader.addEventListener('change', readAndCompressImage, false);
+  <br/>
+  <label>Image File:</label>
+  <input type="file" id="imageLoader" name="imageLoader" />
+  <br/>
+  <br/>
+  <span id="compression-rate"></span>
+  <br/>
+  <a id="download" download="compressed.jpg"></a>
+  <div id='preview'></div>
+  <script type="text/javascript" src="../jpeg-compressor.js"></script>
+  <script>
+    var compressor = new JPEGcompressor()
+    var originalSize
+    var imageLoader = document.getElementById('imageLoader')
+    imageLoader.addEventListener('change', readAndCompressImage, false)
 
-        function readAndCompressImage(e) {
-            var reader = new FileReader();
-            reader.onload = function(content) {
-                originalSize = dataURLSize(content.target.result);
-                compressor.Run(content.target.result, 0.7, receivesCompressedImage);
-            }
-            reader.readAsDataURL(e.target.files[0]);
-        }
+    function readAndCompressImage (e) {
+      var reader = new FileReader()
+      reader.onload = function (content) {
+        originalSize = dataURLSize(content.target.result)
+        compressor.Run(content.target.result, 0.7, receivesCompressedImage)
+      }
+      reader.readAsDataURL(e.target.files[0])
+    }
 
-        function receivesCompressedImage(data) {
-            document.getElementById('compression-rate').innerHTML = "Compression rate of " + (100 - (100 * dataURLSize(data) / originalSize)).toFixed(0) + "%";
-            document.getElementById('download').innerHTML = "Download processed image";
-            document.getElementById('download').href = data;
-        }
+    function receivesCompressedImage (data) {
+      document.getElementById('compression-rate').innerHTML = 'Compression rate of ' + (100 - (100 * dataURLSize(data) / originalSize)).toFixed(0) + '%'
+      document.getElementById('download').innerHTML = 'Download processed image'
+      document.getElementById('download').href = data // httpPostedFileBase
+    }
 
-        function dataURLSize (data) {
-            return data.length * 3 / 4;
-        }
-    </script>
+    function dataURLSize (data) {
+      return data.length * 3 / 4
+    }
+  </script>
 </body>
 
 </html>
